@@ -12,8 +12,8 @@ DB.push({
   banner: "https://muazamkamal.com/img/cpu.915fe0e7.jpg",
 });
 
-const getGears = ({ response }: { response: any }) => {
-  response.body = [...DB];
+const getGears = (ctx) => {
+  ctx.response.body = [...DB];
 };
 
 export { getGears };

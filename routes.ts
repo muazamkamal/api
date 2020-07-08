@@ -3,8 +3,8 @@ import { getGears } from "./controllers/gears.ts";
 
 const router = new Router();
 
-router.get("/", ({ response }: { response: any }) => {
-  response.body = {
+router.get("/", (ctx) => {
+  ctx.response.body = {
     message: "⌨🎧🎮🎬",
   };
 });
