@@ -6,7 +6,7 @@ client.connectWithUri(
   Deno.env.get("MONGODB_URI") || "mongodb://localhost:27017",
 );
 
-const db = client.database("api");
+const db = client.database(Deno.env.get("MONGODB_DATABASE") || "api");
 const gearDb = db.collection("gear");
 
 // Temporary sample load
