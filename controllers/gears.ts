@@ -12,7 +12,7 @@ DB.push({
   banner: "https://muazamkamal.com/img/cpu.915fe0e7.jpg",
 });
 
-const getGears = (ctx) => {
+const getGears = (ctx: any) => {
   ctx.response.body = [...DB];
 };
 
