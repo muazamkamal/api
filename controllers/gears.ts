@@ -13,7 +13,7 @@ const addGears = async (ctx: any) => {
     if (body.type !== "json") throw new Error("Invalid Body");
 
     const newGear = (await gearSchema.validate(body.value) as Gear);
-    const existing = await GearDb.findOne({ "hardware": newGear.hardware });
+    const existing = await GearDb.findOne({ hardware: newGear.hardware });
 
     if (existing) {
       throw new Error(
