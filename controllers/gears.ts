@@ -1,19 +1,32 @@
-import { Gear } from "../types.ts";
 import { GearDb } from "../helpers/db.ts";
-
-// Temporary sample load
-const cpu = {
-  hardware: "CPU",
-  components: [{
-    name: "AMD Ryzen™ 5 3600",
-    quantity: 1,
-    hyperlink: "https://www.amd.com/en/products/cpu/amd-ryzen-5-3600",
-  }],
-  banner: "https://muazamkamal.com/img/cpu.915fe0e7.jpg",
-};
+import { Gear } from "../types.ts";
+import { yup, gearSchema } from "../helpers/validation.ts";
 
 const getGears = async (ctx: any) => {
   ctx.response.body = await GearDb.find();
 };
 
-export { getGears };
+const addGears = async (ctx: any) => {
+  try {
+    const body = await ctx.request.body();
+
+    if (body.type !== "json") throw new Error("Invalid Body");
+
+    const newGear = (await gearSchema.validate(body.value) as Gear);
+    const existing = await GearDb.findOne({ "hardware": newGear.hardware });
+
+    if (existing) {
+      throw new Error(
+        "Hardware exists, consider adding components to it instead",
+      );
+    }
+
+    GearDb.insertOne(newGear);
+    ctx.response.body = newGear;
+  } catch (error) {
+    error.status = 422;
+    throw error;
+  }
+};
+
+export { getGears, addGears };

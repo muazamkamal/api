@@ -1,5 +1,5 @@
 import { Router } from "https://deno.land/x/oak/mod.ts";
-import { getGears } from "./controllers/gears.ts";
+import { getGears, addGears } from "./controllers/gears.ts";
 
 const router = new Router();
 
@@ -10,5 +10,6 @@ router.get("/", (ctx) => {
 });
 
 router.get("/gears", getGears);
+router.post("/gears", addGears);
 
 export default router;
