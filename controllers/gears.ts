@@ -1,13 +1,5 @@
-import { MongoClient } from "https://deno.land/x/mongo@v0.8.0/mod.ts";
 import { Gear } from "../types.ts";
-
-const client = new MongoClient();
-client.connectWithUri(
-  Deno.env.get("MONGODB_URI") || "mongodb://localhost:27017",
-);
-
-const db = client.database(Deno.env.get("MONGODB_DATABASE") || "api");
-const gearDb = db.collection("gear");
+import { GearDb } from "../helpers/db.ts";
 
 // Temporary sample load
 const cpu = {
@@ -21,7 +13,7 @@ const cpu = {
 };
 
 const getGears = async (ctx: any) => {
-  ctx.response.body = await gearDb.find({ hardware: { $ne: null } });
+  ctx.response.body = await GearDb.find();
 };
 
 export { getGears };
