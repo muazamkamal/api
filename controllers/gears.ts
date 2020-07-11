@@ -6,7 +6,7 @@ const getGears = async (ctx: any) => {
   ctx.response.body = await GearDb.find();
 };
 
-const addGears = async (ctx: any) => {
+const addGear = async (ctx: any) => {
   try {
     const body = await ctx.request.body();
 
@@ -74,4 +74,4 @@ const addComp = async (ctx: any) => {
   }
 };
 
-export { getGears, addGears, addComp };
+export { getGears, addGear, addComp };
