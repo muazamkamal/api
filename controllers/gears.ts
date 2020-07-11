@@ -1,6 +1,6 @@
 import { GearDb } from "../helpers/db.ts";
-import { Gear } from "../types.ts";
-import { yup, gearSchema } from "../helpers/validation.ts";
+import { Gear, Component } from "../types.ts";
+import { yup, gearSchema, compSchema } from "../helpers/validation.ts";
 
 const getGears = async (ctx: any) => {
   ctx.response.body = await GearDb.find();
@@ -12,7 +12,9 @@ const addGears = async (ctx: any) => {
 
     if (body.type !== "json") throw new Error("Invalid Body");
 
-    const newGear = (await gearSchema.validate(body.value) as Gear);
+    let newGear = (await gearSchema.validate(body.value) as Gear);
+    newGear = await gearSchema.cast(newGear, { stripUnknown: true });
+
     const existing = await GearDb.findOne({ hardware: newGear.hardware });
 
     if (existing) {
@@ -23,10 +25,53 @@ const addGears = async (ctx: any) => {
 
     GearDb.insertOne(newGear);
     ctx.response.body = newGear;
+    ctx.response.status = 201;
   } catch (error) {
     error.status = 422;
     throw error;
   }
 };
 
-export { getGears, addGears };
+const addComp = async (ctx: any) => {
+  const { hw } = ctx.params;
+
+  const gear = await GearDb.findOne({ hardware: hw.toLowerCase() });
+
+  if (!gear) {
+    const err: any = new Error("Hardware not found");
+    err.status = 404;
+    throw err;
+  }
+
+  try {
+    const body = await ctx.request.body();
+
+    if (body.type !== "json") throw new Error("Invalid Body");
+
+    let comp = (await compSchema.validate(body.value) as Component);
+    comp = await compSchema.cast(comp, { stripUnknown: true });
+
+    let { components } = gear;
+
+    components.push(comp);
+
+    await GearDb.updateOne(
+      { hardware: hw.toLowerCase() },
+      {
+        $set: {
+          components: components,
+        },
+      },
+    );
+
+    const updatedGear = await GearDb.findOne({ hardware: hw.toLowerCase() });
+
+    ctx.response.body = updatedGear;
+    ctx.response.status = 200;
+  } catch (error) {
+    error.status = 422;
+    throw error;
+  }
+};
+
+export { getGears, addGears, addComp };
