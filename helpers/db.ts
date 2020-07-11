@@ -7,6 +7,6 @@ client.connectWithUri(
 
 const db = client.database(Deno.env.get("MONGODB_DATABASE") || "api");
 
-const GearDb = db.collection("gear");
+const GearDb = db.collection("gears");
 
 export { db, GearDb };
