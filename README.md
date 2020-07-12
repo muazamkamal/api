@@ -12,10 +12,23 @@ REST API with Deno for https://muazamkamal.com
 
 ## Setup
 
+1. Clone this repository.
+
+    `git clone https://github.com/muazamkamal/api.git`
+
+2. Navigate to the root directory of the repository.
+
+3. Run the api server as mentioned below.
+
 ### Running
 
-`deno run --allow-net --allow-env --allow-read --allow-write --allow-plugin --unstable main.ts
-`
+`deno run --allow-net --allow-env --allow-read --allow-write --allow-plugin --unstable main.ts`
+
+### Running (docker)
+
+`docker build -t api-server .`
+
+`docker run -it --init -p 3000:3000 api-server`
 
 ## Technologies
 
