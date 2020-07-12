@@ -14,7 +14,8 @@ REST API with Deno for https://muazamkamal.com
 
 ### Running
 
-`deno run --allow-net main.ts`
+`deno run --allow-net --allow-env --allow-read --allow-write --allow-plugin --unstable main.ts
+`
 
 ## Technologies
 
