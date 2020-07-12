@@ -1,6 +1,6 @@
 import { Router } from "https://deno.land/x/oak/mod.ts";
 import { checkKey } from "./controllers/keyAuth.ts";
-import { getGears, addGear, addComp } from "./controllers/gears.ts";
+import { getGears, addGear, addComp, removeGear } from "./controllers/gears.ts";
 
 const router = new Router();
 
@@ -13,5 +13,6 @@ router.get("/", (ctx) => {
 router.get("/gears", getGears);
 router.post("/gears", checkKey, addGear);
 router.put("/gears/:hw", checkKey, addComp);
+router.delete("/gears/:hw", checkKey, removeGear);
 
 export default router;

@@ -79,4 +79,20 @@ const addComp = async (ctx: any) => {
   }
 };
 
-export { getGears, addGear, addComp };
+const removeGear = async (ctx: any) => {
+  const { hw } = ctx.params;
+
+  const gear = await GearDb.deleteOne({ hardware: hw.toLowerCase() });
+
+  if (!gear) {
+    const err: any = new Error("Hardware not found");
+    err.status = 404;
+    throw err;
+  }
+
+  ctx.response.body = {
+    message: "Hardware deleted",
+  };
+};
+
+export { getGears, addGear, addComp, removeGear };
