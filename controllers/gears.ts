@@ -3,7 +3,12 @@ import { Gear, Component } from "../types.ts";
 import { yup, gearSchema, compSchema } from "../helpers/validation.ts";
 
 const getGears = async (ctx: any) => {
-  ctx.response.body = await GearDb.find();
+  const gears = await GearDb.find();
+  gears.map((gear: any) => {
+    delete gear._id;
+  });
+
+  ctx.response.body = gears;
 };
 
 const addGear = async (ctx: any) => {
