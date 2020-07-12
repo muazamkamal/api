@@ -34,4 +34,7 @@ REST API with Deno for https://muazamkamal.com
 
 * [Deno](https://deno.land/)
   * [Oak](https://github.com/oakserver/oak)
+* [MongoDB](https://github.com/manyuanrong/deno_mongo)
+* [Yup](https://github.com/jquense/yup)
 * TypeScript
+* [Docker](https://www.docker.com/)
