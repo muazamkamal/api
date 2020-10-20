@@ -1,6 +1,12 @@
-import { Router } from "https://deno.land/x/oak/mod.ts";
+import { Router } from "./deps.ts";
 import { checkKey } from "./controllers/keyAuth.ts";
-import { getGears, getAGear, addGear, addComp, removeGear } from "./controllers/gears.ts";
+import {
+  addComp,
+  addGear,
+  getAGear,
+  getGears,
+  removeGear,
+} from "./controllers/gears.ts";
 
 const router = new Router();
 

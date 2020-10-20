@@ -1,6 +1,6 @@
 import { GearDb } from "../helpers/db.ts";
-import { Gear, Component } from "../types.ts";
-import { gearSchema, compSchema } from "../helpers/validation.ts";
+import { Component, Gear } from "../types.ts";
+import { compSchema, gearSchema } from "../helpers/validation.ts";
 
 const getGears = async (ctx: any) => {
   const gears = await GearDb.find();
@@ -14,7 +14,7 @@ const getGears = async (ctx: any) => {
 const getAGear = async (ctx: any) => {
   const { hw } = ctx.params;
 
-  const gear = await GearDb.findOne({ hardware: hw.toLowerCase() });
+  const gear: any = await GearDb.findOne({ hardware: hw.toLowerCase() });
 
   if (!gear) {
     const err: any = new Error("Hardware not found");
@@ -56,7 +56,7 @@ const addGear = async (ctx: any) => {
 const addComp = async (ctx: any) => {
   const { hw } = ctx.params;
 
-  const gear = await GearDb.findOne({ hardware: hw.toLowerCase() });
+  const gear: any = await GearDb.findOne({ hardware: hw.toLowerCase() });
 
   if (!gear) {
     const err: any = new Error("Hardware not found");
@@ -111,4 +111,4 @@ const removeGear = async (ctx: any) => {
   };
 };
 
-export { getGears, getAGear, addGear, addComp, removeGear };
+export { addComp, addGear, getAGear, getGears, removeGear };
