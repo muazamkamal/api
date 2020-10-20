@@ -8,6 +8,9 @@
   <i>by <a href="https://hashrock.studio.design/" target="_blank">hashrock</a></i>
 </p>
 
+### DISCLAMER
+**This project is currently in hiatus, due to lack of MongoDB Atlas support in Deno**
+
 REST API with Deno for https://muazamkamal.com
 
 ## Setup
